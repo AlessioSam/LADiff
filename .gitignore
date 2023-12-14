@@ -131,11 +131,14 @@ dmypy.json
 
 # ! Alessio
 .vscode
-datasets
-deps
-experiments
-prepare
-results
+datasets/*
+!datasets/README.MD
+deps/*
+!deps/.gitkeep
+experiments/mld/*
+!experiments/mld/.gitkeep
+results/mld/*
+!results/mld/.gitkeep
 checkpoints
 
 *.ckpt
