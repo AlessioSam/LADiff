@@ -55,7 +55,7 @@ def data_parse(latents: np.ndarray, lengths, texts: list):
 
     # t_0 = latents[:,0,:].cpu() # [bs, 256]
     t_0 = latents.reshape(-1, latents.shape[-2] * latents.shape[-1]).cpu() # [bs, max_it*256]
-    dim_red = TSNE(n_components=2, perplexity=70, random_state=140) # perplexity influnces quite a lot the result
+    dim_red = TSNE(n_components=2, perplexity=70, random_state=140) # perplexity influnces the result
     z = dim_red.fit_transform(t_0)
     
     # normalize
@@ -108,7 +108,7 @@ def data_parse3D(latents: np.ndarray, lengths, texts: list, length_aware=True):
     # 2nd method: do TSNE on 1st latents to extract X, 2nd latents to extract Y, 3rd latents to extract Z
     ########### X ###########
     t_0 = points_for_X.reshape(-1, points_for_X.shape[-1]) # [bs, 1*256]
-    dim_red = TSNE(n_components=1, perplexity=p, random_state=rs) # perplexity influnces quite a lot the result 47 803 paper / 15 803 teaser
+    dim_red = TSNE(n_components=1, perplexity=p, random_state=rs) # perplexity influnces the result 47 803 paper / 15 803 teaser
     X = dim_red.fit_transform(t_0)
     
     # normalize
@@ -116,7 +116,7 @@ def data_parse3D(latents: np.ndarray, lengths, texts: list, length_aware=True):
 
     ########### Y ###########
     t_0 = points_for_Y.reshape(-1, points_for_Y.shape[-1]) # [bs, 1*256]
-    dim_red = TSNE(n_components=1, perplexity=p, random_state=rs) # perplexity influnces quite a lot the result
+    dim_red = TSNE(n_components=1, perplexity=p, random_state=rs) # perplexity influnces the result
     Y = dim_red.fit_transform(t_0)
     
     # normalize
@@ -124,7 +124,7 @@ def data_parse3D(latents: np.ndarray, lengths, texts: list, length_aware=True):
 
     ########### Z ###########
     t_0 = points_for_Z.reshape(-1, points_for_Z.shape[-1]) # [bs, 1*256]
-    dim_red = TSNE(n_components=1, perplexity=p, random_state=rs) # 140 # perplexity influnces quite a lot the result
+    dim_red = TSNE(n_components=1, perplexity=p, random_state=rs) # 140 # perplexity influnces the result
     Z = dim_red.fit_transform(t_0)
     
     # normalize
@@ -210,7 +210,7 @@ def drawFig3D(output_dir: str, latents: np.ndarray, lengths, texts = None, lengt
         df.iloc[6]["y"]+str(df.iloc[0]["length"]): 'lime',           df.iloc[6]["y"]+str(df.iloc[1]["length"]): 'mediumseagreen', df.iloc[6]["y"]+str(df.iloc[2]["length"]): "darkgreen"
     }
     
-    # filter one red outlier for paper figure
+    # filter one red outlier
     mask = (df['comp-2'] == df[(df["length"] == 30) & (df["y"] == "a man jumps.")]["comp-2"].max()) & (df["length"] == 30)
     df = df[~mask]
 
@@ -218,7 +218,7 @@ def drawFig3D(output_dir: str, latents: np.ndarray, lengths, texts = None, lengt
     fig = plt.figure(figsize=(3*2*4*1.5, 2*3*1.5))
     
     ax1 = fig.add_subplot(131)
-    # plot elements in datafram that have only x component
+    # plot elements in dataframe that have only x component
     for_x = df[df["length"] == 30]
     colors_x = [class_colors[i] for i in for_x["y"]+for_x["length"].astype(str)] 
     ax1.scatter(for_x["comp-1"], for_x["comp-2"], c=colors_x, s=50, label=for_x["y"])

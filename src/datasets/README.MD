@@ -7,11 +7,3 @@ todo
 ## KIT
 
 todo
-
-## HUMANACT12
-
-todo
-
-## UESTC
-
-todo
