@@ -6,7 +6,7 @@
  
  [[Paper](https://arxiv.org/abs/2407.11532)]
  
-<image src="https://github.com/AlessioSam/LADiff/blob/main/images/teaser-1.png" width="600">
+<image src="https://github.com/AlessioSam/LADiff/blob/main/images/teaser-1.png" width="1000">
        
 </div>
 
