@@ -22,3 +22,8 @@ scikit-image
 spacy
 diffusers
 ftfy
+tensorboard
+opencv-python
+matplotlib
+numpy==1.23.1
+clip @ git+https://github.com/openai/CLIP.git

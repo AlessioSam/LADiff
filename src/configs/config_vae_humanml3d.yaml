@@ -1,7 +1,12 @@
-NAME: 1222_PELearn_VAE_MEncDec49_MdiffEnc49_bs64_clip_uncond75_01 # Experiment name
+NAME: DVAE_48latent_33D_mask_test # Experiment name
 DEBUG: False # Debug mode
 ACCELERATOR: 'gpu' # Devices optioncal: “cpu”, “gpu”, “tpu”, “ipu”, “hpu”, “mps, “auto”
-DEVICE: [0] # Index of gpus eg. [0] or [0,1,2,3]
+DEVICE: [0,1,2,3,4,5,6,7] # [3,4,5,6] nostre
+TEST_DEVICE: [3]
+
+IDEA: 'ard'
+ARDIFF: False
+# FORCE_SEQ: True
 
 # Training configuration
 TRAIN:
@@ -12,11 +17,27 @@ TRAIN:
     SKIP_CONNECT: True
     PE_TYPE: mld
     DIFF_PE_TYPE: mld
+    IDEA: 'ard'
+    DVAE: True
+    PERCENTAGE_NOISED: 0.33 #0.33
+    FINETUNE_DECODER: False
+    MAX_IT: 5 #1 #7 #13 
+    FRAME_PER_LATENT: 48 #198 #32 #16 
+    MD_TRANS: False
+    PE_LATENT: False
+    JOINT_DISTRO_FIX: False
+    LAD: True
+    TEST_EFFICIENCY: False # set to False
+    
   DATASETS: ['humanml3d'] # Training datasets
+  # DATASETS CONFIG FOR FORCING SEQUENTIALITY
+  SUBPHASE: None #'stage1' # stage1, stage2, None
+  N_FRAMES: None #8
   NUM_WORKERS: 11 # Number of workers
   BATCH_SIZE: 128 # Size of batches
   START_EPOCH: 0 # Start epochMMOTIONENCODER
-  END_EPOCH: 6000 # End epoch
+  END_EPOCH: 3000 # End epoch
+  RESUME_STAGE1: '' 
   RESUME: '' # Resume training from this path
   PRETRAINED_VAE: ''
   OPTIM:
@@ -31,13 +52,15 @@ EVAL:
 
 # Test Configuration
 TEST:
-  CHECKPOINTS: '' # Pretrained model path
+  CHECKPOINTS: ./experiments/ladiff/DVAE_48latent_33D_mask_retry2/checkpoints/epoch=2999.ckpt # Pretrained model path
   DATASETS: ['humanml3d'] # training datasets
   SPLIT: test
-  BATCH_SIZE: 32 # training Batch size
+  BATCH_SIZE: 64 # training Batch size
   MEAN: False
   NUM_SAMPLES: 1
   FACT: 1
+  REPLICATION_TIMES: 20 # Number of times to replicate the test
+  SAVE_LATENTS: False
 
 # Datasets Configuration
 DATASET:
@@ -59,9 +82,8 @@ LOSS:
 # Model Configuration
 model:
   vae: true # whether vae model
-  model_type: mld # model type
+  model_type: ladiff # model type
   condition: 'text'
-  latent_dim: [1, 256] # latent dimension
   ff_size: 1024 #
   num_layers: 9 # number of layers
   num_head: 4 # number of head layers
@@ -69,14 +91,24 @@ model:
   activation: gelu # activation type
   guidance_scale: 7.5 #
   guidance_uncondp: 0.1 # 0.1 0.25
+ 
+  latent_dim: [1, 256] # 256 # latent dimension
+  latent_dim_stage1: 7 #!!!
+  motion_conditioning: last # last, full, middle(TODO)
+  vae_from_t2m: False
+  sample_latent_idx: 'single'
+  FORCE_SEQ: False
+  #input_seq_forcing: 8
+  
 
 # Logger configuration
 LOGGER:
-  SACE_CHECKPOINT_EPOCH: 200
+  SACE_CHECKPOINT_EPOCH: 200 #100
   LOG_EVERY_STEPS: 1
-  VAL_EVERY_STEPS: 200
+  VAL_EVERY_STEPS: 200 #100
   TENSORBOARD: True
   WANDB:
-    PROJECT: null
+    PROJECT: 'motion_synthesis' #null
     OFFLINE: False
     RESUME_ID: null
+    ENTITY: 'pinlab-sapienza'

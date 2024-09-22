@@ -10,11 +10,11 @@ from rich.table import Table
 from omegaconf import OmegaConf
 from thop import profile
 from fvcore.nn import FlopCountAnalysis, parameter_count_table
-from mld.callback import ProgressLogger
-from mld.config import parse_args
-from mld.data.get_data import get_datasets
-from mld.models.get_model import get_model
-from mld.utils.logger import create_logger
+from ladiff.callback import ProgressLogger
+from ladiff.config import parse_args
+from ladiff.data.get_data import get_datasets
+from ladiff.models.get_model import get_model
+from ladiff.utils.logger import create_logger
 
 
 def print_table(title, metrics):

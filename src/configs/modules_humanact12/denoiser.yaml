@@ -1,5 +1,5 @@
 denoiser:
-  target: mld.models.architectures.mld_denoiser.MldDenoiser
+  target: ladiff.models.architectures.ladiff_denoiser.LADiffDenoiser
   params:
     text_encoded_dim: 768
     ff_size: 1024

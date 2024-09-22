@@ -10,13 +10,13 @@ import torch
 from rich.progress import track
 
 from omegaconf import OmegaConf
-from mld.data.utils import a2m_collate
+from ladiff.data.utils import a2m_collate
 from torch.utils.data import DataLoader
-from mld.callback import ProgressLogger
-from mld.config import parse_args
-from mld.data.get_data import get_datasets
-from mld.models.get_model import get_model
-from mld.utils.logger import create_logger
+from ladiff.callback import ProgressLogger
+from ladiff.config import parse_args
+from ladiff.data.get_data import get_datasets
+from ladiff.models.get_model import get_model
+from ladiff.utils.logger import create_logger
 import sklearn
 from sklearn.manifold import TSNE
 from sklearn.decomposition import PCA
@@ -34,7 +34,7 @@ import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.animation as animation
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
-from mld.config import instantiate_from_config
+from ladiff.config import instantiate_from_config
 
 params = {
 'axes.labelsize': 36, # 20

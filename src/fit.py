@@ -14,14 +14,14 @@ import joblib
 import natsort
 import numpy as np
 #import smplx
-from mld import smplx
+from ladiff import smplx
 import torch
 import trimesh
 
-from mld.transforms.joints2rots import config
-from mld.transforms.joints2rots.smplify import SMPLify3D
-from mld.utils.joints import mmm_to_smplh_scaling_factor
-from mld.utils.temos_utils import subsample
+from ladiff.transforms.joints2rots import config
+from ladiff.transforms.joints2rots.smplify import SMPLify3D
+from ladiff.utils.joints import mmm_to_smplh_scaling_factor
+from ladiff.utils.temos_utils import subsample
 from scripts.plys2npy import plys2npy
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "src"))

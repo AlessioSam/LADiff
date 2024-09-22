@@ -13,12 +13,12 @@ from torch.utils.data import ConcatDataset, DataLoader
 # from torchsummary import summary
 from tqdm import tqdm
 
-from mld.config import parse_args
-# from mld.datasets.get_dataset import get_datasets
-from mld.data.get_data import get_datasets
-from mld.data.sampling import subsample, upsample
-from mld.models.get_model import get_model
-from mld.utils.logger import create_logger
+from ladiff.config import parse_args
+# from ladiff.datasets.get_dataset import get_datasets
+from ladiff.data.get_data import get_datasets
+from ladiff.data.sampling import subsample, upsample
+from ladiff.models.get_model import get_model
+from ladiff.utils.logger import create_logger
 
 
 def main():
@@ -55,7 +55,7 @@ def main():
     if cfg.DEMO.EXAMPLE:
         # Check txt file input
         # load txt
-        from mld.utils.demo_utils import load_example_input
+        from ladiff.utils.demo_utils import load_example_input
 
         text, length = load_example_input(cfg.DEMO.EXAMPLE)
         task = "Example"
@@ -109,7 +109,7 @@ def main():
     # load dataset to extract nfeats dim of model
     dataset = get_datasets(cfg, logger=logger, phase="test")[0]
 
-    # create mld model
+    # create ladiff model
     total_time = time.time()
     model = get_model(cfg, dataset)
 
@@ -164,7 +164,7 @@ def main():
     model.to(device)
     model.eval()
 
-    mld_time = time.time()
+    ladiff_time = time.time()
 
     # sample
     with torch.no_grad():
@@ -190,7 +190,7 @@ def main():
                         batch = {"length": length, "text": text}
 
                 # cal inference time
-                infer_time = time.time() - mld_time
+                infer_time = time.time() - ladiff_time
                 num_batch = 1
                 num_all_frame = sum(batch["length"])
                 num_ave_frame = sum(batch["length"]) / len(batch["length"])
@@ -253,7 +253,7 @@ def main():
                 #     joints = model(batch)
 
                 num_batch, num_all_frame, num_ave_frame = 100, 100 * 196, 196
-                infer_time = time.time() - mld_time
+                infer_time = time.time() - ladiff_time
 
                 # joints = joints.cpu().numpy()
 
@@ -306,21 +306,21 @@ def main():
 
         # ToDo fix time counting
         total_time = time.time() - total_time
-        print(f'MLD Infer time - This/Ave batch: {infer_time/num_batch:.2f}')
-        print(f'MLD Infer FPS - Total batch: {num_all_frame/infer_time:.2f}')
-        print(f'MLD Infer time - This/Ave batch: {infer_time/num_batch:.2f}')
-        print(f'MLD Infer FPS - Total batch: {num_all_frame/infer_time:.2f}')
+        print(f'LADiff Infer time - This/Ave batch: {infer_time/num_batch:.2f}')
+        print(f'LADiff Infer FPS - Total batch: {num_all_frame/infer_time:.2f}')
+        print(f'LADiff Infer time - This/Ave batch: {infer_time/num_batch:.2f}')
+        print(f'LADiff Infer FPS - Total batch: {num_all_frame/infer_time:.2f}')
         print(
-            f'MLD Infer FPS - Running Poses Per Second: {num_ave_frame*infer_time/num_batch:.2f}')
+            f'LADiff Infer FPS - Running Poses Per Second: {num_ave_frame*infer_time/num_batch:.2f}')
         print(
-            f'MLD Infer FPS - {num_all_frame/infer_time:.2f}s')
+            f'LADiff Infer FPS - {num_all_frame/infer_time:.2f}s')
         print(
-            f'MLD Infer FPS - Running Poses Per Second: {num_ave_frame*infer_time/num_batch:.2f}')
+            f'LADiff Infer FPS - Running Poses Per Second: {num_ave_frame*infer_time/num_batch:.2f}')
 
         # todo no num_batch!!!
         # num_batch=> num_forward
         print(
-            f'MLD Infer FPS - time for 100 Poses: {infer_time/(num_batch*num_ave_frame)*100:.2f}'
+            f'LADiff Infer FPS - time for 100 Poses: {infer_time/(num_batch*num_ave_frame)*100:.2f}'
         )
         print(
             f'Total time spent: {total_time:.2f} seconds (including model loading time and exporting time).'
@@ -328,17 +328,17 @@ def main():
 
     if cfg.DEMO.RENDER:
         # plot with lines
-        # from mld.data.humanml.utils.plot_script import plot_3d_motion
+        # from ladiff.data.humanml.utils.plot_script import plot_3d_motion
         # fig_path = Path(str(npypath).replace(".npy",".mp4"))
         # plot_3d_motion(fig_path, joints, title=text, fps=cfg.DEMO.FRAME_RATE)
 
         # single render
-        # from mld.utils.demo_utils import render
+        # from ladiff.utils.demo_utils import render
         # figpath = render(npypath, cfg.DATASET.JOINT_TYPE,
         #                  cfg_path="./configs/render_cx.yaml")
         # logger.info(f"Motions are rendered here:\n{figpath}")
 
-        from mld.utils.demo_utils import render_batch
+        from ladiff.utils.demo_utils import render_batch
 
         blenderpath = cfg.RENDER.BLENDER_PATH
         render_batch(os.path.dirname(npypath),

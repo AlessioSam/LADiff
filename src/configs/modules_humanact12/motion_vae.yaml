@@ -1,6 +1,5 @@
 motion_vae:
-  # Optional: mld_vae, vposert_vae
-  target: mld.models.architectures.actor_vae.ActorVae
+  target: ladiff.models.architectures.actor_vae.ActorVae
   params:
     ff_size: 1024
     num_layers: 6

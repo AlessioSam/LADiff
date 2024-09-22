@@ -21,12 +21,79 @@ We introduce the problem of generating length-aware 3D human motion sequences fr
 </p>
 </div>
 
+<hr/>
 
-<h3 align="center"> 
-<b>Download the checkpoints <a href="https://drive.google.com/drive/folders/1BFSzG3MdabhTydd27HvLleNh1n-fmsvH?usp=sharing">here</a>!</b>
-</h3>
+### Create the environment
 
-<h2 align="center">:bricks: REPO UNDER CONSTRUCTION</h2> 
+```
+conda create python=3.10 --name ladiff
+conda activate ladiff
+```
 
+Install the packages in `requirements.txt` and install [PyTorch 1.12.1](https://pytorch.org/)
 
-Our code is heavily adapted from [MLD](https://github.com/ChenFengYe/motion-latent-diffusion). 
+```
+pip install -r requirements.txt
+```
+
+Run the scripts to download dependencies:
+
+```
+bash prepare/download_smpl_model.sh
+bash prepare/prepare_clip.sh
+bash prepare/download_t2m_evaluators.sh
+```
+
+Put datasets in the `datasets` folder, please refer to [HumanML3D](https://github.com/EricGuo5513/HumanML3D) for setup.
+
+We tested our code on Python 3.10.9 and PyTorch 1.12.1.
+
+<hr/>
+
+### Pretrained model
+
+Download the checkpoints trained on HumanML3D from [the Google Drive](https://drive.google.com/drive/folders/1BFSzG3MdabhTydd27HvLleNh1n-fmsvH?usp=sharing), and place them in the `experiments/ladiff` folder. 
+
+<hr/>
+
+### Train your own model
+
+For the stage 1 (LA-VAE) please first check the parameters in `configs/config_vae_humanml3d.yaml`, e.g. `NAME`,`DEBUG`.
+
+Then, run the following command:
+
+```
+python -m train --cfg configs/config_vae_humanml3d.yaml --cfg_assets configs/assets.yaml --batch_size 64 --nodebug
+```
+
+For the stage 2 (LA-DDPM) please update the parameters in `configs/config_ladiff_humanml3d.yaml`, e.g. `NAME`,`DEBUG`,`PRETRAINED_VAE` (change to your latest ckpt model path in previous step)
+
+Then, run the following command:
+
+```
+python -m train --cfg configs/config_ladiff_humanml3d.yaml --cfg_assets configs/assets.yaml --batch_size 128  --nodebug
+```
+
+<hr/>
+
+### Evaluate the model
+
+Please first put the trained model checkpoint path to `TEST.CHECKPOINT` in `configs/config_ladiff_humanml3d.yaml`.
+
+Then, run the following command:
+
+```
+python -m test --cfg configs/config_ladiff_humanml3d.yaml --cfg_assets configs/assets.yaml
+```
+
+<hr/>
+
+### Citation
+
+If you find our code or paper helpful, please consider citing us.
+
+<hr/>
+
+### Acknowledgements
+
+Thanks to [MLD](https://github.com/ChenFengYe/motion-latent-diffusion), our code is borrowing from them. Please visit their page for more instructions. 

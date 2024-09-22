@@ -1,1 +1,1 @@
-python -m scripts.tsne --cfg configs/config_mld_humanml3d_edit.yaml 
+python -m scripts.tsne --cfg configs/config_ladiff_humanml3d.yaml 

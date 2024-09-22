@@ -15,10 +15,10 @@ except ImportError:
         "Blender is not properly installed or not launch properly. See README.md to have instruction on how to install and use blender."
     )
 
-import mld.launch.blender
-import mld.launch.prepare  # noqa
-from mld.config import parse_args
-from mld.utils.joints import smplh_to_mmm_scaling_factor
+import ladiff.launch.blender
+import ladiff.launch.prepare  # noqa
+from ladiff.config import parse_args
+from ladiff.utils.joints import smplh_to_mmm_scaling_factor
 
 
 def extend_paths(path, keyids, *, onesample=True, number_of_samples=1):
@@ -72,9 +72,9 @@ def render_cli() -> None:
 
     import numpy as np
 
-    from mld.render.blender import render
-    from mld.render.blender.tools import mesh_detect
-    from mld.render.video import Video
+    from ladiff.render.blender import render
+    from ladiff.render.blender.tools import mesh_detect
+    from ladiff.render.video import Video
     init = True
     for path in paths:
         # check existed mp4 or under rendering

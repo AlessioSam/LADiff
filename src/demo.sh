@@ -1,1 +1,1 @@
-python demo.py --cfg ./configs/config_mld_humanml3d_edit.yaml --cfg_assets ./configs/assets.yaml --example ./demo/example.txt
+python demo.py --cfg ./configs/config_ladiff_humanml3d.yaml --cfg_assets ./configs/assets.yaml --example ./demo/example.txt

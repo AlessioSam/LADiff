@@ -1,6 +1,5 @@
 motion_vae:
-  # Optional: mld_vae, vposert_vae
-  target: mld.models.architectures.mld_vae.MldVae
+  target: ladiff.models.architectures.ladiff_vae.LADiffVae
   params:
     arch: 'encoder_decoder'
     ff_size: 1024
