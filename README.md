@@ -33,6 +33,7 @@ conda activate ladiff
 Install the packages in `requirements.txt` and install [PyTorch 1.12.1](https://pytorch.org/)
 
 ```
+cd src
 pip install -r requirements.txt
 ```
 
