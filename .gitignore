@@ -140,6 +140,9 @@ src/experiments/mld/*
 src/results/mld/*
 !src/results/mld/.gitkeep
 checkpoints
+src/ReMoDiffuse/data/database/*.npz
+src/ReMoDiffuse/logs/remodiffuse_kit/*.pth
+src/ReMoDiffuse/logs/remodiffuse_t2m/*.pth
 
 *.ckpt
 
