@@ -135,10 +135,10 @@ src/datasets/*
 !src/datasets/README.MD
 src/deps/*
 !src/deps/.gitkeep
-src/experiments/ladiff/*
-!src/experiments/ladiff/.gitkeep
-src/results/ladiff/*
-!src/results/ladiff/.gitkeep
+src/experiments/mld/*
+!src/experiments/mld/.gitkeep
+src/results/mld/*
+!src/results/mld/.gitkeep
 checkpoints
 
 *.ckpt
