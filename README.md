@@ -91,7 +91,20 @@ python -m test --cfg configs/config_ladiff_humanml3d.yaml --cfg_assets configs/a
 
 ### Citation
 
-If you find our code or paper helpful, please consider citing us.
+If you find our code or paper helpful, please consider citing us:
+```
+@InProceedings{sampieri_eccv_24,
+author="Sampieri, Alessio and Palma, Alessio and Spinelli, Indro and Galasso, Fabio",
+editor="Leonardis, Ale{\v{s}} and Ricci, Elisa and Roth, Stefan and Russakovsky, Olga and Sattler, Torsten and Varol, G{\"u}l",
+title="Length-Aware Motion Synthesis via Latent Diffusion",
+booktitle="Computer Vision -- ECCV 2024",
+year="2025",
+publisher="Springer Nature Switzerland",
+address="Cham",
+pages="107--124",
+isbn="978-3-031-73668-1"
+}
+```
 
 <hr/>
 
